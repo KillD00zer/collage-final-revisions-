@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Linear Algebra Study Companion</title>
   
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- KaTeX for gorgeous handwriting-style mathematical typesetting -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
@@ -109,15 +106,13 @@
     }
   </style>
 </head>
-<body class="text-white min-h-screen flex flex-col justify-between overflow-x-hidden relative p-4 md:p-6">
+<body class="text-white min-h-screen flex flex-col justify-between overflow-x-hidden relative p-4 md:p-6 font-sans">
 
-  <!-- Background Orbs -->
   <div class="absolute top-10 left-10 w-96 h-96 rounded-full bg-gradient-to-r from-pink-600 to-purple-800 opacity-[0.12] filter blur-[100px] pointer-events-none animate-drift-pink z-0"></div>
   <div class="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full bg-gradient-to-r from-blue-600 to-indigo-900 opacity-[0.15] filter blur-[120px] pointer-events-none animate-drift-blue z-0"></div>
 
-  <!-- Header Section -->
   <header class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center z-10 gap-4 mb-6">
-    <div class="flex items-center space-x-3">
+    <div class="flex items-center space-x-3 text-right sm:text-left">
       <div class="relative flex items-center justify-center">
         <span class="absolute w-8 h-8 rounded-full bg-pink-500/30 pulse-glow"></span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500 relative" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -130,9 +125,7 @@
       </div>
     </div>
 
-    <!-- Mode Swapping & Glossary Navigation -->
     <div class="flex items-center gap-2">
-      <!-- Mode Swapper -->
       <div class="bg-slate-950/60 p-1.5 rounded-full border border-pink-500/20 flex gap-1">
         <button id="btn-mode-flashcards" onclick="switchMode('flashcards')" class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 active-tab">
           Study Cards
@@ -142,7 +135,6 @@
         </button>
       </div>
 
-      <!-- Quick glossary trigger -->
       <button onclick="toggleGlossary(true)" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 transition-all duration-300 shadow-md flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.516a10.022 10.022 0 01-2.315 2.108m-.943-4.46a9.166 9.166 0 01-1.39-1.683M17 20h5m-2-3v3m-2-3H9.048a10.022 10.022 0 01-2.315-2.108m0 0a8.717 8.717 0 01-3.21-3.1m3.21 3.1A8.717 8.717 0 0010 9.516M11.5 5.5l.5-.5m-.5.5l-.5-.5m.5.5V9" />
@@ -152,26 +144,20 @@
     </div>
   </header>
 
-  <!-- Section 1: Study Cards View -->
   <main id="flashcards-section" class="w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center z-10 relative mb-6">
     
-    <!-- Outer deck layout with arrows on the sides -->
     <div class="w-full flex items-center justify-between gap-2 md:gap-6 relative">
       
-      <!-- Left side arrow (hidden on mobile, shown on md up) -->
       <button onclick="prevCard()" class="hidden md:flex items-center justify-center w-12 h-12 rounded-full glass-card border border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/20 text-pink-400 hover:text-white transition-all duration-300 focus:outline-none shrink-0 group shadow-lg">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
-      <!-- Glassmorphic Flashcard -->
       <div id="flashcard" class="flex-1 w-full max-w-3xl glass-card rounded-2xl p-6 md:p-8 relative overflow-hidden flex flex-col min-h-[480px] md:min-h-[520px] fade-transition transform translate-y-0 opacity-100">
         
-        <!-- Animated border flare -->
         <span class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-60"></span>
         
-        <!-- Card Top Indicator / Header -->
         <div class="flex justify-between items-start mb-6">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center pulse-glow shrink-0">
@@ -184,17 +170,14 @@
               <h2 id="card-title" class="text-lg md:text-xl font-bold tracking-normal text-white">Title of Card</h2>
             </div>
           </div>
-          <span id="card-counter" class="text-xs font-semibold text-slate-400 bg-slate-900/40 px-3 py-1 rounded-full border border-slate-700/50">Card 1 of 20</span>
+          <span id="card-counter" class="text-xs font-semibold text-slate-400 bg-slate-900/40 px-3 py-1 rounded-full border border-slate-700/50">Card 1 of 19</span>
         </div>
 
-        <!-- Card Content Body (Dynamically populated) -->
         <div id="card-content-body" class="flex-1 text-slate-200 text-sm md:text-base leading-relaxed overflow-y-auto pr-1">
-          <!-- Populated by JS -->
-        </div>
+          </div>
 
       </div>
 
-      <!-- Right side arrow (hidden on mobile, shown on md up) -->
       <button onclick="nextCard()" class="hidden md:flex items-center justify-center w-12 h-12 rounded-full glass-card border border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/20 text-pink-400 hover:text-white transition-all duration-300 focus:outline-none shrink-0 group shadow-lg">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -203,111 +186,101 @@
 
     </div>
 
-    <!-- Stepper Pagination Dots -->
     <div id="pagination-dots" class="flex flex-wrap justify-center items-center gap-2 mt-6 max-w-xl z-10">
-      <!-- Generated by JS -->
-    </div>
+      </div>
 
   </main>
 
-  <!-- Section 2: Interactive Logical Roadmap Dashboard (NEW Master Cheat Sheet) -->
   <main id="roadmap-section" class="hidden w-full max-w-5xl mx-auto flex-1 flex flex-col z-10 relative mb-6 fade-transition opacity-0 transform translate-y-4">
     
-    <!-- Dashboard Intro Summary -->
     <div class="w-full glass-card rounded-2xl p-6 mb-6 relative overflow-hidden">
       <span class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-60"></span>
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div class="space-y-1">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-right md:text-left">
+        <div class="space-y-1 w-full">
           <span class="text-[10px] font-bold tracking-wider uppercase text-pink-400">Exam Cheat Sheet Dashboard</span>
           <h2 class="text-xl md:text-2xl font-bold text-white">الخريطة الذهنية الشاملة لربط المنهج</h2>
           <p class="text-xs text-slate-400">الدليل الموحد لربط الفراغات، والحلول، والاستقلال الخطي، والقيم الذاتية، وهندسة المصفوفات بالمنطق الجبري الشامل.</p>
         </div>
-        <div class="px-4 py-2.5 bg-pink-500/10 rounded-xl border border-pink-500/30 text-xs text-pink-300 text-center font-semibold">
+        <div class="px-4 py-2.5 bg-pink-500/10 rounded-xl border border-pink-500/30 text-xs text-pink-300 text-center font-semibold shrink-0">
           7 ركائز أساسية مترابطة خطياً!
         </div>
       </div>
     </div>
 
-    <!-- Master Grid for the 7 Pillars -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full text-right" dir="rtl">
       
-      <!-- Pillar 1 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">01 &bull; RANK-NULLITY LOGIC</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الأبعاد والفراغات</span>
           </div>
           <h3 class="text-md font-bold text-white">العمود الفقري للمادة: منطق الأبعاد والفراغات</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
-            تنقسم أعمدة المصفوفة البالغ عددها ($n$) داخل صيغة الـ $REF$ أو الـ $RREF$ إلى نوعين لا ثالث لهما:
+            تنقسم أعمدة المصفوفة البالغ عددها ($n$) داخل صيغة الـ $\text{REF}$ أو الـ $\text{RREF}$ إلى نوعين لا ثالث لهما:
           </p>
           <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
             <p class="text-slate-300">
-              <strong class="text-white">• أعمدة تحتوي على عناصر ارتكاز (Pivot Columns):</strong> تمثل المتغيرات الأساسية ($Basic\ Variables$). وعددها يساوي رتبة المصفوفة ($Rank(A)$) وبُعد فضاء الصفوف ($dim(Row\ Space)$) وفضاء الأعمدة ($dim(Column\ Space)$).
+              <strong class="text-white">• أعمدة تحتوي على عناصر ارتكاز (Pivot Columns):</strong> تمثل المتغيرات الأساسية ($\text{Basic Variables}$). وعددها يساوي رتبة المصفوفة ($\text{Rank}(A)$) وبُعد فضاء الصفوف ($\dim(\text{Row Space})$) وفضاء الأعمدة ($\dim(\text{Column Space})$).
             </p>
             <p class="text-slate-300">
-              <strong class="text-white">• أعمدة خالية من الارتكاز (Non-Pivot Columns):</strong> تمثل المتغيرات الحرة ($Free\ Variables$). وعددها يساوي بُعد الفضاء الصفري للمصفوفة ($dim(Null\ Space)$).
+              <strong class="text-white">• أعمدة خالية من الارتكاز (Non-Pivot Columns):</strong> تمثل المتغيرات الحرة ($\text{Free Variables}$). وعددها يساوي بُعد الفضاء الصفري للمصفوفة ($\dim(\text{Null Space})$).
             </p>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
-          <p class="text-xs text-pink-300 font-semibold font-mono">$\\text{Rank}(A) + \\text{Nullity}(A) = n$</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$\text{Rank}(A) + \text{Nullity}(A) = n$</p>
           <button onclick="toggleAccordion('acc-1')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-1" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-1" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
-          <strong>المنطق الجبري:</strong> عند اختزال مصفوفة إلى صيغة الـ $REF$، كل عمود إما أن يمتلك $Pivot$ (وبالتالي يمثل بُعدًا مستقلاً في فضاء الصورة) أو لا يمتلك (فيمثل درجة حرية تتجه بالكامل إلى الصفر لتشكل فضاء النواة $Null\ Space$). مجموع الاثنين يحفظ البعد الكلي للنطاق وهو $n$ أعمدة.
+          <strong>المنطق الجبري:</strong> عند اختزال مصفوفة إلى صيغة الـ $\text{REF}$، كل عمود إما أن يمتلك $\text{Pivot}$ (وبالتالي يمثل بُعدًا مستقلاً في فضاء الصورة) أو لا يمتلك (فيمثل درجة حرية تتجه بالكامل إلى الصفر لتشكل فضاء النواة $\text{Null Space}$). مجموع الاثنين يحفظ البعد الكلي للنطاق وهو $n$ أعمدة.
         </div>
       </div>
 
-      <!-- Pillar 2 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">02 &bull; SOLVING LOGIC (Ax = B)</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الأنظمة الخطية</span>
           </div>
           <h3 class="text-md font-bold text-white">منطق الحكم على حلول الأنظمة الخطية</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
-            عند حساب المصفوفة الممتدة $C = [A|B]$ واختزالها إلى $REF$، انظر دائماً إلى السطر الأخير للحكم على طبيعة الحلول:
+            عند حساب المصفوفة الممتدة $C = [A \mid B]$ واختزالها إلى $\text{REF}$، انظر دائماً إلى السطر الأخير للحكم على طبيعة الحلول:
           </p>
-          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs text-right">
             <p class="text-slate-300">
-              <strong class="text-rose-400">• مستحيل الحل (No Solution):</strong> تظهر إذا وجد صف أصفار يقابله رقم غير صفري بالطرف الأيمن: $\\left[ \\begin{array}{ccc|c} 0 & 0 & 0 & c \\end{array} \\right]$ حيث $c \\neq 0$.
+              <strong class="text-rose-400">• مستحيل الحل (No Solution):</strong> تظهر إذا وجد صف أصفار يقابله رقم غير صفري بالطرف الأيمن: $\left[ \begin{array}{ccc|c} 0 & 0 & 0 & c \end{array} \right]$ حيث $c \neq 0$.
             </p>
             <p class="text-slate-300">
-              <strong class="text-emerald-400">• حل وحيد (Unique Solution):</strong> يحدث إذا لم يظهر الصف التناقضي وكانت الرتبة تساوي عدد المتغيرات تماماً ($Rank = n$).
+              <strong class="text-emerald-400">• حل وحيد (Unique Solution):</strong> يحدث إذا لم يظهر الصف التناقضي وكانت الرتبة تساوي عدد المتغيرات تماماً ($\text{Rank} = n$).
             </p>
             <p class="text-slate-300">
-              <strong class="text-yellow-400">• حلول لا نهائية (Infinite Solutions):</strong> تحدث إذا كانت الرتبة أقل من عدد المتغيرات ($Rank < n$).
+              <strong class="text-yellow-400">• حلول لا نهائية (Infinite Solutions):</strong> تحدث إذا كانت الرتبة أقل من عدد المتغيرات ($\text{Rank} < n$).
             </p>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
-          <p class="text-xs text-pink-300 font-semibold">Consistent if no $[0\\ 0\\ 0\\ |\\ c]$</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
+          <p class="text-xs text-pink-300 font-semibold">Consistent if no $[0\ 0\ \dots\ 0 \mid c]$</p>
           <button onclick="toggleAccordion('acc-2')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-2" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
-        <div id="acc-2" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+        <div id="acc-2" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2 text-right">
           <strong>المنطق الهندسي والجبري:</strong> 
-          تصفير الطرف الأيسر بالكامل مع وجود قيمة باليمين يعني أننا ندعي جبرياً أن $0 = c$ وهو مستحيل. بينما في حالة الحلول اللانهائية، فإن ظهور صف صفري كامل $[0\\ 0\\ 0\\ |\\ 0]$ يشير لوجود متغير حر واحد على الأقل ($Free\\ Variable$)، والذي نفترض له قيمة مجهولة مثل $t \\in \\mathbb{R}$ لإنتاج عدد لا نهائي من المتجهات المحققة للنظام.
+          تصفير الطرف الأيسر بالكامل مع وجود قيمة باليمين يعني أننا ندعي جبرياً أن $0 = c$ وهو مستحيل. بينما في حالة الحلول اللانهائية، فإن ظهور صف صفري كامل $\left[ \begin{array}{ccc|c} 0 & 0 & 0 & 0 \end{array} \right]$ يشير لوجود متغير حر واحد على الأقل ($\text{Free Variable}$)، والذي نفترض له قيمة مجهولة مثل $t \in \mathbb{R}$ لإنتاج عدد لا نهائي من المتجهات المحققة للنظام.
         </div>
       </div>
 
-      <!-- Pillar 3 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">03 &bull; LINEAR INDEPENDENCE</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الاستقلال الخطي</span>
           </div>
@@ -316,76 +289,71 @@
             عند وضع مجموعة متجهات عددها ($n$) كأعمدة داخل مصفوفة $A$:
           </p>
           <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
-            <p class="text-slate-300">
-              <strong class="text-emerald-400">• مستقلة خطياً (Linearly Independent):</strong> هندسياً لا يمكن إنتاج أحدها من دمج المتجهات الأخرى. وجبرياً يعني:
-              $$Rank(A) = n \\quad \\& \\quad Null(A) = \\{\\underline{0}\\}$$
-              ولا توجد أي متغيرات حرة تماماً في صيغة الـ $RREF$ والمحدد للمصفوفة المربعة لا يساوي الصفر ($|A| \\neq 0$).
-            </p>
-            <p class="text-slate-300">
-              <strong class="text-rose-400">• معتمدة خطياً (Linearly Dependent):</strong> يوجد على الأقل متجه واحد عبارة عن تجميعة أو مضاعف للآخرين. وجبرياً:
-              $$Rank(A) < n \\quad \\& \\quad |A| = 0$$
-              ويظهر صف صفري بالكامل على الأقل في الـ $REF$ مع وجود متغير حر واحد أو أكثر.
-            </p>
+            <div class="text-slate-300 font-sans">
+              <strong class="text-emerald-400">• مستقلة خطياً ($\text{Linearly Independent}$):</strong> هندسياً لا يمكن إنتاج أحدها من دمج المتجهات الأخرى. وجبرياً يعني:
+              $$\text{Rank}(A) = n \quad \text{and} \quad \text{Null}(A) = \{\underline{0}\}$$
+              ولا توجد أي متغيرات حرة تماماً في صيغة الـ $\text{RREF}$ والمحدد للمصفوفة المربعة لا يساوي الصفر ($|A| \neq 0$).
+            </div>
+            <div class="text-slate-300">
+              <strong class="text-rose-400">• معتمدة خطياً ($\text{Linearly Dependent}$):</strong> يوجد على الأقل متجه واحد عبارة عن تجميعة أو مضاعف للآخرين. وجبرياً:
+              $$\text{Rank}(A) < n \quad \text{and} \quad |A| = 0$$
+              ويظهر صف صفري بالكامل على الأقل في الـ $\text{REF}$ مع وجود متغير حر واحد أو أكثر.
+            </div>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
-          <p class="text-xs text-pink-300 font-semibold font-mono">Independent $\\iff |A| \\neq 0$</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
+          <p class="text-xs text-pink-300 font-semibold font-mono">Independent $\iff |A| \neq 0$</p>
           <button onclick="toggleAccordion('acc-3')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-3" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-3" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
           <strong>المنطق الهندسي:</strong> 
-          إذا كانت المتجهات معتمدة خطياً، فهذا يعني أنها تقع في فضاء فرعي ذي أبعاد أقل من عددها (مثلاً 3 متجهات تقع جميعها في مستوٍ ثنائي الأبعاد $2D$). بالتالي، يمكن التعبير عن أحد المتجهات باستخدام البقية، وتفقد المصفوفة رتبتها الكاملة ليصبح محددها مساوياً للصفر.
+          إذا كانت المتجهات معتمدة خطياً، فهذا يعني أنها تقع في فضاء فرعي ذي أبعاد أقل من عددها (مثلاً 3 متجهات تقع جميعها في مستوٍ ثنائي الأبعاد $2\text{D}$). بالتالي، يمكن التعبير عن أحد المتجهات باستخدام البقية، وتفقد المصفوفة رتبتها الكاملة ليصبح محددها مساوياً للصفر.
         </div>
       </div>
 
-      <!-- Pillar 4 -->
-      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between md:col-span-1">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">04 &bull; SQUARE MATRIX BRIDGE</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">جسر الترابط الكلي</span>
           </div>
-          <h3 class="text-md font-bold text-white">جسر المصفوفة المربعة الكلي ($n \\times n$ Matrix Bridge)</h3>
+          <h3 class="text-md font-bold text-white">جسر المصفوفة المربعة الكلي ($n \times n$ Matrix Bridge)</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
             للمصفوفات المربعة، العلاقات التالية متكافئة بالكامل (إذا تحقق شرط واحد، تحققت بقية الشروط تلقائياً):
           </p>
           
-          <!-- Visual Glowing Flow of Equivalence -->
-          <div class="space-y-2.5 my-3 text-[11px]">
+          <div class="space-y-2.5 my-3 text-[11px]" dir="ltr">
             <div class="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
               <strong class="text-emerald-400 block mb-1">✓ Invertible Matrix (عكوسة)</strong>
-              $$A^{-1}\\text{ exists} \\iff |A| \\neq 0 \\iff Rank(A) = n \\iff \\text{Unique Solution} \\iff \\lambda_i \\neq 0$$
+              $$A^{-1} \text{ exists} \iff |A| \neq 0 \iff \text{Rank}(A) = n \iff \text{Unique Solution} \iff \lambda_i \neq 0$$
             </div>
             <div class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30">
               <strong class="text-rose-400 block mb-1">✗ Singular Matrix (منفردة)</strong>
-              $$\\text{No } A^{-1} \\iff |A| = 0 \\iff Rank(A) < n \\iff \\text{Infinite/No Solution} \\iff \\exists \\lambda_i = 0$$
+              $$\text{No } A^{-1} \iff |A| = 0 \iff \text{Rank}(A) < n \iff \text{Infinite/No Solution} \iff \exists \lambda_i = 0$$
             </div>
           </div>
         </div>
-        <div class="mt-2 pt-3 border-t border-slate-800 flex justify-between items-center">
+        <div class="mt-2 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
           <p class="text-[10px] text-slate-400">جميع الشروط السابقة متكافئة منطقياً وعكسياً.</p>
           <button onclick="toggleAccordion('acc-4')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-4" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-4" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
           <strong>أهمية الجسر بالامتحان:</strong> 
-          إذا ذكر السؤال أن المصفوفة تحتوي على قيمة ذاتية مساوية للصفر ($\\lambda = 0$)، فاستنتج فوراً أن محددها مساوٍ للصفر ($|A| = 0$)، وأنها غير قابلة للعكس ($Singular$)، وأن رتبتها أصغر من عدد أعمدتها ($Rank < n$)، وبالتالي فإن النظام المتجانس المقابل لها $Ax = 0$ يمتلك عدداً لا نهائياً من الحلول وليس الحل الصفري فقط.
+          إذا ذكر السؤال أن المصفوفة تحتوي على قيمة ذاتية مساوية للصفر ($\lambda = 0$)، فاستنتج فوراً أن محددها مساوٍ للصفر ($|A| = 0$)، وأنها غير قابلة للعكس ($\text{Singular}$)، وأن رتبتها أصغر من عدد أعمدتها ($\text{Rank} < n$)، وبالتالي فإن النظام المتجانس المقابل لها $Ax = \underline{0}$ يمتلك عدداً لا نهائياً من الحلول وليس الحل الصفري فقط.
         </div>
       </div>
 
-      <!-- Pillar 5 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">05 &bull; SPECTRUM PROPERTIES</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">محدد وأثر المصفوفة</span>
           </div>
@@ -394,39 +362,37 @@
             تجمع القيم الذاتية خصائص مصفوفاتنا عبر علاقتين حسابيتين ممتازتين لتسريع عمليات الحل والتحقق في الامتحان:
           </p>
           <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
-            <p class="text-slate-300">
-              <strong class="text-white">• محدد المصفوفة (Determinant):</strong> محدد أي مصفوفة مربعة يساوي دائماً حاصل ضرب جميع قيمها الذاتية:
-              $$|A| = \\lambda_1 \\times \\lambda_2 \\times \\dots \\times \\lambda_n$$
-            </p>
-            <p class="text-slate-300">
-              <strong class="text-white">• أثر المصفوفة (Trace):</strong> الأثر (وهو مجموع عناصر القطر الرئيسي) يساوي دائماً مجموع القيم الذاتية:
-              $$Trace(A) = a_{11} + a_{22} + \\dots + a_{nn} = \\lambda_1 + \\lambda_2 + \\dots + \\lambda_n$$
-            </p>
-            <p class="text-slate-300">
-              <strong class="text-pink-400">• قوى المصفوفة (Powers of A):</strong> إذا كانت المصفوفة $A$ تمتلك قيمة ذاتية تساوي $\\lambda$، فإن المصفوفة $A^m$ تمتلك نفس المتجهات الذاتية ولكن قيمتها الذاتية تصبح مباشرة $\\lambda^m$.
-            </p>
+            <div class="text-slate-300">
+              <strong class="text-white">• محدد المصفوفة ($\text{Determinant}$):</strong> محدد أي مصفوفة مربعة يساوي دائماً حاصل ضرب جميع قيمها الذاتية:
+              $$|A| = \lambda_1 \times \lambda_2 \times \dots \times \lambda_n$$
+            </div>
+            <div class="text-slate-300">
+              <strong class="text-white">• أثر المصفوفة ($\text{Trace}$):</strong> الأثر (وهو مجموع عناصر القطر الرئيسي) يساوي دائماً مجموع القيم الذاتية:
+              $$\text{Trace}(A) = a_{11} + a_{22} + \dots + a_{nn} = \lambda_1 + \lambda_2 + \dots + \lambda_n$$
+            </div>
+            <div class="text-slate-300">
+              <strong class="text-pink-400">• قوى المصفوفة ($\text{Powers of } A$):</strong> إذا كانت المصفوفة $A$ تمتلك قيمة ذاتية تساوي $\lambda$، فإن المصفوفة $A^m$ تمتلك نفس المتجهات الذاتية ولكن قيمتها الذاتية تصبح مباشرة $\lambda^m$.
+            </div>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
-          <p class="text-xs text-pink-300 font-semibold font-mono">$\\prod \\lambda_i = |A| \\quad \\& \\quad \\sum \\lambda_i = Tr(A)$</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$\prod_{i=1}^n \lambda_i = |A| \quad \text{and} \quad \sum_{i=1}^n \lambda_i = \text{Trace}(A)$</p>
           <button onclick="toggleAccordion('acc-5')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-5" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-5" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
           <strong>مثال للتحقق السريع:</strong> 
-          إذا قمت بحساب القيم الذاتية لمصفوفة قطرها الرئيسي يحتوي على الأرقام $(6, 3)$، ووجدتها بالحل $(\\lambda_1=4, \\lambda_2=5)$، فستعرف فوراً أن حساباتك صحيحة مائة بالمائة لأن:
-          $$Tr(A) = 6 + 3 = 9 \\quad \\& \\quad \\lambda_1 + \\lambda_2 = 4 + 5 = 9$$
+          إذا قمت بحساب القيم الذاتية لمصفوفة قطرها الرئيسي يحتوي على الأرقام $(6, 3)$، ووجدتها بالحل $(\lambda_1=4, \lambda_2=5)$، فستعرف فوراً أن حساباتك صحيحة مائة بالمائة لأن:
+          $$\text{Trace}(A) = 6 + 3 = 9 \quad \text{and} \quad \lambda_1 + \lambda_2 = 4 + 5 = 9$$
         </div>
       </div>
 
-      <!-- Pillar 6 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">06 &bull; DIAGONALIZATION LOGIC</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">القطرية والتفكيك</span>
           </div>
@@ -436,35 +402,33 @@
           </p>
           <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
             <p class="text-slate-300">
-              <strong class="text-white">• شرط القابلية للقطرة (Diagonalizable):</strong> تكون المصفوفة قابلة للقطرة فقط إذا استطعنا إيجاد عدد $n$ من المتجهات الذاتية المستقلة خطياً لتكوين المصفوفة $C$.
+              <strong class="text-white">• شرط القابلية للقطرة ($\text{Diagonalizable}$):</strong> تكون المصفوفة قابلة للقطرة فقط إذا استطعنا إيجاد عدد $n$ من المتجهات الذاتية المستقلة خطياً لتكوين المصفوفة $C$.
             </p>
             <p class="text-slate-300">
-              <strong class="text-emerald-400">• القيم المختلفة (Distinct Eigenvalues):</strong> إذا كانت جميع القيم الذاتية الناتجة أرقاماً مختلفة تماماً، فالمصفوفة حتماً قابلة للقطرة.
+              <strong class="text-emerald-400">• القيم المختلفة ($\text{Distinct}$):</strong> إذا كانت جميع القيم الذاتية الناتجة أرقاماً مختلفة تماماً، فالمصفوفة حتماً قابلة للقطرة.
             </p>
             <p class="text-slate-300">
-              <strong class="text-yellow-400">• القيم المكررة (Repeated Eigenvalues):</strong> إذا وجد تكرار لإحدى القيم، فيجب التأكد من أن البُعد الهندسي (عدد المتجهات المستقلة الناتجة عنها) يساوي بُعدها الجبري (عدد مرات تكرارها). وبغير ذلك، تفشل القطرية.
+              <strong class="text-yellow-400">• القيم المكررة (Repeated):</strong> إذا وجد تكرار لإحدى القيم، فيجب التأكد من أن البُعد الهندسي (عدد المتجهات المستقلة الناتجة عنها) يساوي بُعدها الجبري (عدد مرات تكرارها). وبغير ذلك، تفشل القطرية.
             </p>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
           <p class="text-xs text-pink-300 font-semibold font-mono">$A = C D C^{-1}$</p>
           <button onclick="toggleAccordion('acc-6')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-6" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-6" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
           <strong>المنطق الجبري:</strong> 
           عملية القطرية تعني تغيير محاور الإحداثيات الأساسية للمشكلة إلى محاور تمثل المتجهات الذاتية للمصفوفة. في هذا الفضاء الفردي الجديد، يصبح التحويل مجرد تمدد مباشر على القطر الرئيسي للمصفوفة $D$. إذا عجزنا عن إيجاد متجهات مستقلة كافية، فلن نتمكن من تكوين المصفوفة العكسية $C^{-1}$، وبالتالي يستحيل إتمام عملية القطرية.
         </div>
       </div>
 
-      <!-- Pillar 7 -->
       <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
-        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <span class="absolute right-0 top-0 h-full w-[3px] bg-pink-500"></span>
         <div class="space-y-3">
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-center" dir="ltr">
             <span class="text-xs font-bold text-pink-400 tracking-wider">07 &bull; SPECIAL MATRICES LOGIC</span>
             <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">مصفوفات ذات شروط خاصة</span>
           </div>
@@ -473,41 +437,39 @@
             هناك فئات خاصة من المصفوفات ندرسها في فصول متقدمة، ولها خصائص طيفية محددة:
           </p>
           <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
-            <p class="text-slate-300">
-              <strong class="text-emerald-400">• المصفوفة المعرفة موجباً (Positive Definite Matrix):</strong> تكون المصفوفة المتماثلة معرفة موجباً خطياً فقط إذا كانت جميع قيمها الذاتية الناتجة أرقاماً موجبة تماماً:
-              $$\\lambda_i > 0 \\quad \\forall i$$
-            </p>
-            <p class="text-slate-300">
-              <strong class="text-yellow-400">• المصفوفة ذات القوى المتطابقة (Idempotent Matrix):</strong> هي المصفوفة التي تحقق الشرط الرياضي:
+            <div class="text-slate-300">
+              <strong class="text-emerald-400">• المصفوفة المعرفة موجباً ($\text{Positive Definite Matrix}$):</strong> تكون المصفوفة المتماثلة معرفة موجباً خطياً فقط إذا كانت جميع قيمها الذاتية الناتجة أرقاماً موجبة تماماً:
+              $$\lambda_i > 0 \quad \forall i$$
+            </div>
+            <div class="text-slate-300">
+              <strong class="text-yellow-400">• المصفوفة ذات القوى المتطابقة ($\text{Idempotent Matrix}$):</strong> هي المصفوفة التي تحقق الشرط الرياضي:
               $$A^2 = A$$
-              المنطق الخاص بقيمها الذاتية: القيم الذاتية لأي مصفوفة متطابقة القوى يجب أن تكون إما صفراً أو واحداً فقط ($\\lambda = 0 \\text{ or } 1$).
-            </p>
+              المنطق الخاص بقيمها الذاتية: القيم الذاتية لأي مصفوفة متطابقة القوى يجب أن تكون إما صفراً أو واحداً فقط ($\lambda \in \{0, 1\}$).
+            </div>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
-          <p class="text-xs text-pink-300 font-semibold font-mono">$A^2 = A \\implies \\lambda \\in \\{0, 1\\}$</p>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center" dir="ltr">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$A^2 = A \implies \lambda \in \{0, 1\}$</p>
           <button onclick="toggleAccordion('acc-7')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
             <span>تفسير المنطق</span>
             <svg id="arrow-acc-7" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
           </button>
         </div>
-        <!-- Accordion Content -->
         <div id="acc-7" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
           <strong>برهان طيف المصفوفة المتطابقة القوى:</strong> 
-          نعلم أن العلاقة الأساسية هي $A\\underline{x} = \\lambda\\underline{x}$.
+          نعلم أن العلاقة الأساسية هي $A\underline{x} = \lambda\underline{x}$.
           بضرب الطرفين بـ $A$:
-          $$A^2\\underline{x} = A(\\lambda\\underline{x}) = \\lambda(A\\underline{x}) = \\lambda^2\\underline{x}$$
+          $$A^2\underline{x} = A(\lambda\underline{x}) = \lambda(A\underline{x}) = \lambda^2\underline{x}$$
           وبما أن $A^2 = A$، فإن:
-          $$A\\underline{x} = \\lambda^2\\underline{x} \\implies \\lambda\\underline{x} = \\lambda^2\\underline{x}$$
-          وبما أن المتجه $\\underline{x} \\neq \\underline{0}$، نستنتج جبرياً أن:
-          $$\\lambda^2 = \\lambda \\implies \\lambda(\\lambda - 1) = 0 \\implies \\lambda = 0 \\text{ or } \\lambda = 1$$
+          $$A\underline{x} = \lambda^2\underline{x} \implies \lambda\underline{x} = \lambda^2\underline{x}$$
+          وبما أن المتجه $\underline{x} \neq \underline{0}$، نستنتج جبرياً أن:
+          $$\lambda^2 = \lambda \implies \lambda(\lambda - 1) = 0 \implies \lambda = 0 \text{ or } \lambda = 1$$
         </div>
       </div>
 
     </div>
 
-    <!-- Conclusion summary mapping footer -->
-    <div class="w-full glass-card rounded-2xl p-6 mt-6 relative overflow-hidden bg-pink-950/10 border border-pink-500/20">
+    <div class="w-full glass-card rounded-2xl p-6 mt-6 relative overflow-hidden bg-pink-950/10 border border-pink-500/20 text-right">
       <h3 class="text-sm font-bold text-white mb-2">الخلاصة الكلية لترابط المنهج:</h3>
       <p class="text-xs text-slate-300 leading-relaxed">
         البداية من الـ <span class="text-pink-400 font-semibold">Pivot</span> في الـ <span class="text-pink-400 font-semibold">REF</span> تحدد الـ <span class="text-pink-400 font-semibold">Rank</span>، والـ <span class="text-pink-400 font-semibold">Rank</span> يحدد نوع الحل والاستقلال، والاستقلال يوصلك للمحددات والمعكوس، والمحددات هي مفتاح حل المعادلات المميزة للـ <span class="text-pink-400 font-semibold">Eigenvalues</span>، والـ <span class="text-pink-400 font-semibold">Eigenvalues</span> هي أساس الـ <span class="text-pink-400 font-semibold">Diagonalization</span> والخصائص المتقدمة للمصفوفات الخاصة. 
@@ -516,7 +478,6 @@
 
   </main>
 
-  <!-- Bottom Navigation Buttons (Responsive Mobile & Tablet friendly) -->
   <footer id="flashcards-footer" class="w-full max-w-md mx-auto z-10 flex flex-col items-center gap-3 mb-4">
     <div class="flex justify-between items-center w-full gap-2 px-4 md:px-0">
       <button onclick="goToFirstCard()" class="flex-1 px-3 py-2 text-[10px] md:text-xs font-semibold uppercase tracking-wider rounded-lg border border-pink-500/20 hover:border-pink-500/60 hover:bg-pink-500/5 text-slate-400 hover:text-white transition-all duration-300 shadow-sm">
@@ -535,9 +496,7 @@
     <p class="text-[10px] text-slate-500 font-medium tracking-wide">Tip: Use Left & Right arrow keys on your keyboard to flip cards!</p>
   </footer>
 
-  <!-- Bilingual glossary drawer -->
   <aside id="glossary-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[450px] glass-drawer shadow-2xl z-50 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
-    <!-- Drawer Header -->
     <div class="p-6 border-b border-pink-500/20 flex justify-between items-center bg-slate-950/60">
       <div class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -552,7 +511,6 @@
       </button>
     </div>
 
-    <!-- Glossary Filter / Search -->
     <div class="p-4 bg-slate-950/40 border-b border-pink-500/10">
       <div class="relative rounded-lg neon-border-glow border border-pink-500/20 bg-slate-900/60 transition-all duration-300">
         <input type="text" id="glossary-search" oninput="filterGlossary()" placeholder="Search terms (e.g., Pivot, Kernel)..." class="w-full bg-transparent px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none">
@@ -564,21 +522,19 @@
       </div>
     </div>
 
-    <!-- Terms list -->
     <div id="glossary-items" class="flex-1 overflow-y-auto p-6 space-y-4">
-      <!-- Generated dynamically by JS -->
-    </div>
+      </div>
     
     <div class="p-4 border-t border-pink-500/10 bg-slate-950/60 text-center text-[10px] text-slate-500">
       Linear Algebra for Data Science Course Guide &bull; Co-Instructor
     </div>
   </aside>
 
-  <!-- Backgrop blur overlay for drawer -->
   <div id="drawer-overlay" onclick="toggleGlossary(false)" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden transition-opacity duration-500 opacity-0"></div>
 
   <script>
     // 20 High-Fidelity sequential cards detailing all subjects in the document
+    // Card 19 was fixed (the truncated path syntax error is solved)
     const cardsData = [
       {
         category: "01. INTRODUCTION",
@@ -698,7 +654,7 @@
         html: `
           <div class="space-y-4">
             <p class="text-gray-300 text-sm md:text-base">
-              لحل أي مصفوفة أو نظام من المعادلات، نسعى لتحويله إلى صيغة <strong>Row Echelon Form (الصورة الصفية الدرجية)</strong>.
+              لحلحلة أي مصفوفة أو نظام من المعادلات، نسعى لتحويله إلى صيغة <strong>Row Echelon Form (الصورة الصفية الدرجية)</strong>.
             </p>
             <div class="bg-slate-900/60 p-4 rounded-xl border border-pink-500/10 space-y-3">
               <h4 class="text-xs font-bold text-pink-400 uppercase tracking-wider">شروط تحويل مصفوفة إلى REF:</h4>
@@ -909,7 +865,6 @@
               المعادلة الأساسية: $A \\underline{x} = \\lambda \\underline{x}$
             </p>
             
-            <!-- Graphic Illustration of Eigenstuff -->
             <div class="flex flex-col md:flex-row justify-center items-center gap-6 my-2 bg-slate-900/50 p-4 rounded-xl border border-slate-800">
               <div class="text-center">
                 <p class="text-[10px] font-semibold text-pink-400 mb-1">Eigenvector (Direction Maintained)</p>
@@ -1143,7 +1098,7 @@
             <div class="grid grid-cols-2 gap-4 text-xs">
               <div class="bg-slate-900/60 p-3 rounded-xl border border-pink-500/10">
                 <strong class="text-pink-400 block">1. Kernel (T) - النواة</strong>
-                <p class="text-slate-300">كل المدخلات التي يجعلها التحويل تساوي الصتر. وهي مساوية تماماً للـ Null Space للمصفوفة.</p>
+                <p class="text-slate-300">كل المدخلات التي يجعلها التحويل تساوي الصفر. وهي مساوية تماماً للـ Null Space للمصفوفة.</p>
                 <p class="text-white font-mono mt-1">$Ker(T) = \\{x | T(x) = 0\\}$</p>
               </div>
               <div class="bg-slate-900/60 p-3 rounded-xl border border-pink-500/10">
@@ -1153,403 +1108,270 @@
               </div>
             </div>
 
-            <!-- Comprehensive SVG mapping of Kernel & Image -->
             <div class="my-1 bg-slate-900/40 p-2.5 rounded-xl border border-slate-800">
               <svg viewBox="0 0 500 180" class="w-full h-auto">
-                <!-- Domain V -->
                 <ellipse cx="120" cy="90" rx="90" ry="70" fill="rgba(30, 41, 59, 0.4)" stroke="#38bdf8" stroke-width="2" />
-                <text x="120" y="35" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Domain V (Rⁿ)</text>
+                <text x="120" y="35" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="middle">Domain V (ℝ<tspan dy="-3" font-size="8">n</tspan><tspan dy="3" font-size="11"></tspan>)</text>
                 
-                <!-- Kernel inside Domain V -->
                 <ellipse cx="120" cy="110" rx="45" ry="30" fill="rgba(244, 63, 94, 0.1)" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3" />
                 <text x="120" y="98" fill="#f43f5e" font-size="9" font-weight="semibold" text-anchor="middle">Kernel(T)</text>
                 <circle cx="105" cy="115" r="3" fill="#f43f5e"/>
                 <circle cx="130" cy="120" r="3" fill="#f43f5e"/>
                 
-                <!-- Codomain W -->
                 <ellipse cx="380" cy="90" rx="90" ry="70" fill="rgba(30, 41, 59, 0.4)" stroke="#10b981" stroke-width="2" />
-                <text x="380" y="35" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">Codomain W (Rᵐ)</text>
+                <text x="380" y="35" fill="#10b981" font-size="11" font-weight="bold" text-anchor="middle">Codomain W (ℝ<tspan dy="-3" font-size="8">m</tspan><tspan dy="3" font-size="11"></tspan>)</text>
                 
-                <!-- Image inside Codomain W -->
                 <ellipse cx="360" cy="100" rx="50" ry="35" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" stroke-width="1.5" />
                 <text x="360" y="82" fill="#10b981" font-size="9" font-weight="semibold" text-anchor="middle">Image(T)</text>
                 <circle cx="340" cy="105" r="3" fill="#10b981"/>
                 <circle cx="370" cy="95" r="3" fill="#10b981"/>
                 
-                <!-- Zero Vector in W -->
                 <circle cx="380" cy="125" r="4" fill="#ffffff" stroke="#f43f5e" stroke-width="1"/>
                 <text x="380" y="140" fill="#ffffff" font-size="8" text-anchor="middle">0_W</text>
                 
-                <!-- Arrow from Kernel to 0_W -->
                 <path d="M 160 115 Q 270 130 370 125" fill="none" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arrow-pink-trans)" />
                 
-                <!-- General mapping arrows -->
-                <path d="M 180 65 Q 265 55 320 80" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-blue)" />
-                <path d="M 195 90 Q 265 95 315 105" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+                <path d="M 180 65 Q 265 55 320 80" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-blue-trans)" />
                 
                 <defs>
-                  <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
-                  </marker>
-                  <marker id="arrow-pink-trans" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                  <marker id="arrow-pink-trans" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                     <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e"/>
+                  </marker>
+                  <marker id="arrow-blue-trans" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
                   </marker>
                 </defs>
               </svg>
             </div>
           </div>
         `
-      },
-      {
-        category: "20. SUMMARY",
-        title: "Your Formula & Exam Cheat Sheet",
-        html: `
-          <div class="space-y-4">
-            <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
-              لقد أتممت مراجعة كل تفاصيل مقرر الجبر الخطي بنجاح! إليك ملخص أهم ما يجب تذكره دائماً:
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-              <div class="bg-slate-900/60 p-3 rounded-xl border border-pink-500/10 space-y-1">
-                <strong class="text-pink-400">المصفوفات والأنظمة:</strong>
-                <p>• الـ REF يحتاج stair-step من الأصفار بالأسفل.</p>
-                <p>• الـ RREF يحتاج محاور قيمتها $1$ مع أصفار فوقها وتحتها.</p>
-                <p>• الشرط لـ No Solution هو معادلة مستحيلة: $0 = c$.</p>
-              </div>
-              <div class="bg-slate-900/60 p-3 rounded-xl border border-pink-500/10 space-y-1">
-                <strong class="text-pink-400">القيم الذاتية والفضاءات:</strong>
-                <p>• القيم الذاتية: $\\det(A - \\lambda I) = 0$.</p>
-                <p>• التحقق: مجموع $\\lambda_i = Tr(A)$ وجداؤهم $= \\det(A)$.</p>
-                <p>• فضاء الأعمدة يعادل الصورة ($Im(T)$)، والصفري يعادل النواة ($Ker(T)$).</p>
-              </div>
-            </div>
-            <div class="bg-pink-950/15 border-2 border-pink-500/30 p-4 rounded-xl text-center text-xs md:text-sm">
-              <strong class="text-white block mb-1">Co-Instructor's Final Words</strong>
-              <p class="text-pink-300 font-bold leading-relaxed">
-                "شغفك بالتعلم هو سلاحك الأقوى! الخطوات المنهجية وحل التدريبات بيدك هي مفتاح التفوق في هذا مقرر. بالتوفيق يا أبطال البيانات والذكاء الاصطناعي!"
-              </p>
-            </div>
-          </div>
-        `
       }
     ];
 
-    // Glossary database (Arabized Terminology with definitions)
+    // Glossary Dictionary Data
     const glossaryData = [
-      { term: "Vector", arabic: "متجه", desc: "مصطلح يشير لمصفوفة ذات بعد واحد فقط (إما عمود واحد أو صف واحد)." },
-      { term: "Matrix", arabic: "مصفوفة", desc: "جدول مستطيل أو مربع من الأرقام مرتبة في صفوف وأعمدة." },
-      { term: "Linear Equation", arabic: "معادلة خطية", desc: "معادلة يكون أعلى أس لمتغيراتها هو 1، وخالية من ضرب المتغيرات ببعضها." },
-      { term: "Row Echelon Form (REF)", arabic: "الصيغة الصفية الدرجية", desc: "توزيع مصفوفي حيث تكون الأصفار متراكمة لأسفل كشكل بير السلم والمحاور تقع يميناً." },
-      { term: "Reduced Row Echelon Form (RREF)", arabic: "الصيغة الصفية المدرجة المختزلة", desc: "صيغة REF إضافية يكون فيها كل محور مساوياً لـ 1، وهو العنصر الوحيد غير الصفري بعموده." },
-      { term: "Pivot", arabic: "المحور / العنصر القيادي", desc: "أول عنصر غير صفري يظهر في صف المصفوفة عند النظر إليه من اليسار." },
-      { term: "Basic Variable", arabic: "متغير أساسي", desc: "المتغير المرتبط بالعمود الذي يحتوي على محور قيادي (Pivot)." },
-      { term: "Free Variable", arabic: "متغير حر", desc: "المتغير المرتبط بعمود لا يحتوي على محور، ونفترض له قيماً اختيارية عشوائية." },
-      { term: "Consistent System", arabic: "نظام متسق", desc: "النظام الخطي الذي يحتوي على حل وحيد أو عدد لا نهائي من الحلول." },
-      { term: "Inconsistent System", arabic: "نظام غير متسق", desc: "النظام الذي لا يحتوي على أي حل، بسبب ظهور تناقض رياضي مثل صفر يساوي قيمة." },
-      { term: "Eigenvalues", arabic: "القيم الذاتية / المميزة", desc: "ثابت عددي يعبر عن مقدار تمدد أو انكماش المتجه الذاتي عند ضربه بالمصفوفة." },
-      { term: "Eigenvectors", arabic: "المتجهات الذاتية", desc: "متجهات خاصة لا يتغير اتجاهها عند ضربها بمصفوفة التحول، وتكتفي بالتمدد على نفس الخط." },
-      { term: "Diagonalization", arabic: "تحويل مصفوفة لقطرية", desc: "عملية تفكيك المصفوفة المربعة إلى حاصل ضرب مصفوفة المتجهات والمصفوفة القطرية وعكسها." },
-      { term: "Linear Independence", arabic: "الاستقلال الخطي", desc: "علاقة بين متجهات تعني أنه لا يمكن صياغة أي متجه فيها كتركيبة خطية للمتجهات الأخرى." },
-      { term: "Gram-Schmidt Process", arabic: "طريقة جرام-شميت للتعامد", desc: "خوارزمية شهيرة لتحويل متجهات مستقلة خطياً إلى متجهات متعامدة وموحدة الطول." },
-      { term: "Row Space", arabic: "فضاء الصفوف", desc: "الفضاء المتجهي المتولد عن صفوف المصفوفة، وأساسه هو الصفوف غير الصفرية للـ REF." },
-      { term: "Column Space", arabic: "فضاء الأعمدة", desc: "الفضاء المتولد عن أعمدة المصفوفة، ويعبر تماماً عن صورة التحويل الخطي." },
-      { term: "Null Space", arabic: "الفراغ الصفري", desc: "مجموعة الحلول المتجهة للمعادلة المتجانسة الناتجة عن تصفير ضرب المصفوفة." },
-      { term: "Kernel", arabic: "نواة التحويل", desc: "مجموعة متجهات المجال التي تتحول بالكامل لمتجه صفري بالمجال المقابل." },
-      { term: "Image", arabic: "صورة التحويل", desc: "مجموعة المخرجات الفعلية التي ينتجها التحويل الخطي بالمجال المقابل." }
+      { term: "Vector", definition: "مصفوفة أحادية البعد تمثل خصائص أو ميزات معينة أو نقاطاً في الفضاء الجغرافي." },
+      { term: "Matrix", definition: "بنية رياضية ثنائية الأبعاد تتكون من صفوف وأعمدة لتخزين البيانات وإجراء التحويلات الخطية." },
+      { term: "Pivot", definition: "العنصر القيادي الأول غير الصفري في صف المصفوفة عند اختزالها." },
+      { term: "Row Echelon Form (REF)", definition: "الصورة الصفية المدرجية حيث تترتب الصفوف وتتراكم الأصفار أسفل العناصر القيادية." },
+      { term: "Reduced Row Echelon Form (RREF)", definition: "صورة مدرجية متطورة يكون فيها كل Pivot مساوياً لـ 1، وهو القيمة غير الصفرية الوحيدة في عموده." },
+      { term: "Rank", definition: "رتبة المصفوفة، وتساوي عدد الصفوف أو الأعمدة المستقلة خطياً (عدد الـ Pivots)." },
+      { term: "Nullity", definition: "بُعد الفضاء الصفري للمصفوفة، ويمثل عدد المتغيرات الحرة." },
+      { term: "Eigenvalue", definition: "القيمة الذاتية؛ مقياس التمدد أو الانكماش الذي يتعرض له المتجه الذاتي أثناء التحويل الخطي." },
+      { term: "Eigenvector", definition: "المتجه الذاتي؛ المتجه الذي يحافظ على اتجاهه الأصلي بعد ضربه في مصفوفة التحويل." },
+      { term: "Kernel", definition: "النواة؛ مجموعة كافة المتجهات في النطاق التي تتحول إلى المتجه الصفري في النطاق المصاحب." },
+      { term: "Image", definition: "الصورة؛ مجموعة كافة المخرجات الممكنة الناتجة عن التحويل الخطي، وتكافئ فضاء الأعمدة." },
+      { term: "Consistent System", definition: "النظام المتسق؛ نظام المعادلات الخطية الذي يمتلك حلاً وحيداً أو عدداً لا نهائياً من الحلول." },
+      { term: "Inconsistent System", definition: "النظام غير المتسق؛ النظام الذي لا يمتلك أي حلول نتيجة حدوث تناقض جبري." }
     ];
 
     let currentCardIndex = 0;
 
-    // Initialize Page
-    window.onload = function() {
-      renderActiveCard();
-      generateDots();
-      populateGlossary();
+    // Core Flashcard Rendering Engine
+    function renderCard(index) {
+      if (index < 0 || index >= cardsData.length) return;
+      currentCardIndex = index;
       
-      // Keyboard interaction listener
-      document.addEventListener('keydown', function(event) {
-        if (event.key === "ArrowLeft") {
-          // Check if we are currently in flashcard mode
-          if (!document.getElementById('flashcards-section').classList.contains('hidden')) {
-            prevCard();
-          }
-        } else if (event.key === "ArrowRight") {
-          if (!document.getElementById('flashcards-section').classList.contains('hidden')) {
-            nextCard();
-          }
-        }
-      });
-
-      // Swipe support for touch screens
-      let touchStartX = 0;
-      let touchEndX = 0;
-      const flashcardElement = document.getElementById('flashcard');
-
-      flashcardElement.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-      });
-
-      flashcardElement.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      });
-
-      function handleSwipe() {
-        if (touchStartX - touchEndX > 50) {
-          nextCard(); // Swiped left, go to next
-        }
-        if (touchEndX - touchStartX > 50) {
-          prevCard(); // Swiped right, go to previous
-        }
-      }
-    };
-
-    // Swapping between flashcards mode & Logical roadmap dashboard
-    function switchMode(mode) {
-      const btnCards = document.getElementById('btn-mode-flashcards');
-      const btnRoadmap = document.getElementById('btn-mode-roadmap');
-      const secCards = document.getElementById('flashcards-section');
-      const secRoadmap = document.getElementById('roadmap-section');
-      const footerCards = document.getElementById('flashcards-footer');
-
-      if (mode === 'flashcards') {
-        btnCards.classList.add('active-tab');
-        btnCards.classList.remove('text-slate-400');
-        btnRoadmap.classList.remove('active-tab');
-        btnRoadmap.classList.add('text-slate-400');
-
-        secRoadmap.classList.add('opacity-0', 'translate-y-4');
-        setTimeout(() => {
-          secRoadmap.classList.add('hidden');
-          secCards.classList.remove('hidden');
-          footerCards.classList.remove('hidden');
-          setTimeout(() => {
-            secCards.classList.remove('opacity-0', 'translate-y-4');
-          }, 50);
-        }, 250);
-
-      } else {
-        btnRoadmap.classList.add('active-tab');
-        btnRoadmap.classList.remove('text-slate-400');
-        btnCards.classList.remove('active-tab');
-        btnCards.classList.add('text-slate-400');
-
-        secCards.classList.add('opacity-0');
-        setTimeout(() => {
-          secCards.classList.add('hidden');
-          footerCards.classList.add('hidden');
-          secRoadmap.classList.remove('hidden');
-          
-          // Trigger KaTeX rendering on the roadmap layout elements
-          renderMathInElement(secRoadmap, {
-            delimiters: [
-              {left: "$$", right: "$$", display: true},
-              {left: "$", right: "$", display: false}
-            ],
-            throwOnError: false
-          });
-
-          setTimeout(() => {
-            secRoadmap.classList.remove('opacity-0', 'translate-y-4');
-          }, 50);
-        }, 250);
-      }
-    }
-
-    // Toggle interactive Accordions in Logical Roadmap
-    function toggleAccordion(accId) {
-      const acc = document.getElementById(accId);
-      const arrow = document.getElementById('arrow-' + accId);
+      const card = cardsData[index];
+      const cardEl = document.getElementById('flashcard');
       
-      if (acc.classList.contains('hidden')) {
-        acc.classList.remove('hidden');
-        acc.classList.add('block');
-        arrow.classList.add('rotate-180');
-        // Render math inside newly opened block to make sure it typesets cleanly
-        renderMathInElement(acc, {
-          delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "$", right: "$", display: false}
-          ],
-          throwOnError: false
-        });
-      } else {
-        acc.classList.add('hidden');
-        acc.classList.remove('block');
-        arrow.classList.remove('rotate-180');
-      }
-    }
-
-    // Render current active card
-    function renderActiveCard() {
-      const card = cardsData[currentCardIndex];
-      const cardContainer = document.getElementById('flashcard');
-
-      // Add a clean fade-out transition
-      cardContainer.style.opacity = '0';
-      cardContainer.style.transform = 'translateY(10px)';
-
+      // Apply smooth transition out
+      cardEl.style.opacity = '0';
+      cardEl.style.transform = 'translateY(8px)';
+      
       setTimeout(() => {
-        // Populating the UI elements
         document.getElementById('card-category').innerText = card.category;
         document.getElementById('card-title').innerText = card.title;
         document.getElementById('card-content-body').innerHTML = card.html;
-        document.getElementById('card-counter').innerText = `Card ${currentCardIndex + 1} of ${cardsData.length}`;
-
-        // Reset scroll position of card content
-        document.getElementById('card-content-body').scrollTop = 0;
-
-        // Render mathematical equations with KaTeX dynamically
+        document.getElementById('card-counter').innerText = `Card ${index + 1} of ${cardsData.length}`;
+        
+        // Re-render KaTeX elements dynamically
         renderMathInElement(document.getElementById('card-content-body'), {
           delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "$", right: "$", display: false}
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
           ],
           throwOnError: false
         });
-
-        // Trigger active dot highlight
-        updateActiveDot();
-
-        // Fade back in smoothly
-        cardContainer.style.opacity = '1';
-        cardContainer.style.transform = 'translateY(0)';
+        
+        updateDots();
+        
+        // Transition back in
+        cardEl.style.opacity = '1';
+        cardEl.style.transform = 'translateY(0)';
       }, 200);
     }
 
-    // Navigation Controls
-    function nextCard() {
-      if (currentCardIndex < cardsData.length - 1) {
-        currentCardIndex++;
-        renderActiveCard();
-      } else {
-        // Complete cycle glow effect or wrap around
-        currentCardIndex = 0;
-        renderActiveCard();
-      }
-    }
-
-    // Previous Navigation
+    // Pagination Controls
     function prevCard() {
-      if (currentCardIndex > 0) {
-        currentCardIndex--;
-        renderActiveCard();
-      } else {
-        currentCardIndex = cardsData.length - 1;
-        renderActiveCard();
-      }
+      if (currentCardIndex > 0) renderCard(currentCardIndex - 1);
     }
 
-    // Direct Page jump
-    function goToCard(index) {
-      if (index >= 0 && index < cardsData.length) {
-        currentCardIndex = index;
-        renderActiveCard();
-      }
+    function nextCard() {
+      if (currentCardIndex < cardsData.length - 1) renderCard(currentCardIndex + 1);
     }
 
-    // Safe global triggers replacing hardcoded indexes
     function goToFirstCard() {
-      goToCard(0);
+      renderCard(0);
     }
 
-    // Dynamic length solver
     function goToLastCard() {
-      goToCard(cardsData.length - 1);
+      renderCard(cardsData.length - 1);
     }
 
-    // Dynamic generation of dots stepper indicator
     function generateDots() {
       const dotsContainer = document.getElementById('pagination-dots');
       dotsContainer.innerHTML = '';
-      
       cardsData.forEach((_, idx) => {
         const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 bg-slate-700 hover:bg-pink-500/50`;
+        dot.onclick = () => renderCard(idx);
         dot.id = `dot-${idx}`;
-        dot.className = "w-2.5 h-2.5 rounded-full bg-slate-700 hover:bg-pink-400 transition-all duration-300 focus:outline-none";
-        dot.title = `Go to card ${idx + 1}`;
-        dot.onclick = () => goToCard(idx);
         dotsContainer.appendChild(dot);
       });
-      updateActiveDot();
     }
 
-    // Update dot highlight status
-    function updateActiveDot() {
+    function updateDots() {
       cardsData.forEach((_, idx) => {
         const dot = document.getElementById(`dot-${idx}`);
         if (dot) {
           if (idx === currentCardIndex) {
-            dot.className = "w-6 h-2.5 rounded-full bg-pink-500 transition-all duration-300 focus:outline-none shadow-md shadow-pink-500/50";
+            dot.className = "w-6 h-2.5 rounded-full bg-gradient-to-r from-pink-600 to-pink-500 shadow-sm shadow-pink-500/50 transition-all duration-300";
           } else {
-            dot.className = "w-2.5 h-2.5 rounded-full bg-slate-700 hover:bg-pink-400 transition-all duration-300 focus:outline-none";
+            dot.className = "w-2.5 h-2.5 rounded-full bg-slate-700 hover:bg-pink-500/50 transition-all duration-300";
           }
         }
       });
     }
 
-    // Sliding Drawer Controls
-    function toggleGlossary(show) {
+    // View Switcher (Cards vs Roadmap Dashboard)
+    function switchMode(mode) {
+      const fcSection = document.getElementById('flashcards-section');
+      const fcFooter = document.getElementById('flashcards-footer');
+      const rmSection = document.getElementById('roadmap-section');
+      const btnFc = document.getElementById('btn-mode-flashcards');
+      const btnRm = document.getElementById('btn-mode-roadmap');
+
+      if (mode === 'flashcards') {
+        rmSection.style.opacity = '0';
+        rmSection.style.transform = 'translateY(16px)';
+        setTimeout(() => {
+          rmSection.classList.add('hidden');
+          fcSection.classList.remove('hidden');
+          fcFooter.classList.remove('hidden');
+          setTimeout(() => {
+            fcSection.style.opacity = '1';
+            fcSection.style.transform = 'translateY(0)';
+          }, 50);
+        }, 250);
+
+        btnFc.classList.add('active-tab');
+        btnRm.classList.remove('active-tab');
+        btnRm.classList.add('text-slate-400');
+      } else {
+        fcSection.style.opacity = '0';
+        fcSection.style.transform = 'translateY(16px)';
+        setTimeout(() => {
+          fcSection.classList.add('hidden');
+          fcFooter.classList.add('hidden');
+          rmSection.classList.remove('hidden');
+          setTimeout(() => {
+            rmSection.style.opacity = '1';
+            rmSection.style.transform = 'translateY(0)';
+            // Trigger KaTeX render on Dashboard layout elements
+            renderMathInElement(rmSection, {
+              delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+              ],
+              throwOnError: false
+            });
+          }, 50);
+        }, 250);
+
+        btnRm.classList.add('active-tab');
+        btnFc.classList.remove('active-tab');
+        btnFc.classList.add('text-slate-400');
+      }
+    }
+
+    // Accordion Logic for Dashboard
+    function toggleAccordion(id) {
+      const acc = document.getElementById(id);
+      const arrow = document.getElementById(`arrow-${id}`);
+      if (acc.classList.contains('hidden')) {
+        acc.classList.remove('hidden');
+        arrow.style.transform = 'rotate(180deg)';
+      } else {
+        acc.classList.add('hidden');
+        arrow.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Glossary Drawer System
+    function toggleGlossary(open) {
       const drawer = document.getElementById('glossary-drawer');
       const overlay = document.getElementById('drawer-overlay');
-      
-      if (show) {
+      if (open) {
         drawer.classList.remove('translate-x-full');
         overlay.classList.remove('hidden');
         setTimeout(() => overlay.classList.add('opacity-100'), 10);
       } else {
         drawer.classList.add('translate-x-full');
         overlay.classList.remove('opacity-100');
-        setTimeout(() => overlay.classList.add('hidden'), 300);
+        setTimeout(() => overlay.classList.add('hidden'), 500);
       }
     }
 
-    // Populate the Bilingual Glossary Drawer
-    function populateGlossary() {
-      const listContainer = document.getElementById('glossary-items');
-      listContainer.innerHTML = '';
-
-      glossaryData.forEach((item) => {
-        const itemCard = document.createElement('div');
-        itemCard.className = "p-4 rounded-xl bg-slate-900/60 border border-pink-500/10 hover:border-pink-500/40 transition-all duration-300 glossary-item";
-        itemCard.dataset.term = item.term.toLowerCase();
-        itemCard.dataset.arabic = item.arabic.toLowerCase();
-        
-        itemCard.innerHTML = `
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-xs font-bold text-white uppercase tracking-wider">${item.term}</span>
-            <span class="text-xs font-semibold text-pink-400 font-mono">${item.arabic}</span>
-          </div>
-          <p class="text-[11px] text-slate-400 leading-relaxed mt-1.5">${item.desc}</p>
+    function buildGlossary() {
+      const container = document.getElementById('glossary-items');
+      container.innerHTML = '';
+      glossaryData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = "p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-pink-500/20 transition-colors";
+        div.setAttribute('data-term', item.term.toLowerCase());
+        div.setAttribute('data-def', item.definition);
+        div.innerHTML = `
+          <h4 class="text-xs font-bold text-pink-400 font-mono tracking-wide mb-1">${item.term}</h4>
+          <p class="text-xs text-slate-300 leading-relaxed text-right" dir="rtl">${item.definition}</p>
         `;
-        listContainer.appendChild(itemCard);
-      });
-
-      // Render math notations inside glossary descriptions automatically if added
-      renderMathInElement(listContainer, {
-        delimiters: [
-          {left: "$$", right: "$$", display: true},
-          {left: "$", right: "$", display: false}
-        ],
-        throwOnError: false
+        container.appendChild(div);
       });
     }
 
-    // Dynamic Filter for Glossary Search Bar
     function filterGlossary() {
-      const searchQuery = document.getElementById('glossary-search').value.toLowerCase();
-      const items = document.getElementsByClassName('glossary-item');
-
-      Array.from(items).forEach((item) => {
-        const term = item.dataset.term;
-        const arabic = item.dataset.arabic;
-        
-        if (term.includes(searchQuery) || arabic.includes(searchQuery)) {
-          item.style.display = "block";
+      const query = document.getElementById('glossary-search').value.toLowerCase();
+      const items = document.querySelectorAll('#glossary-items > div');
+      items.forEach(item => {
+        const term = item.getAttribute('data-term');
+        const def = item.getAttribute('data-def');
+        if (term.includes(query) || def.includes(query)) {
+          item.classList.remove('hidden');
         } else {
-          item.style.display = "none";
+          item.classList.add('hidden');
         }
       });
     }
+
+    // Keyboard Arrow Listeners
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT') return; // Ignore when searching
+      if (e.key === 'ArrowLeft') {
+        prevCard();
+      } else if (e.key === 'ArrowRight') {
+        nextCard();
+      }
+    });
+
+    // Application Bootstrap Lifecycle
+    window.addEventListener('DOMContentLoaded', () => {
+      generateDots();
+      renderCard(0);
+      buildGlossary();
+    });
   </script>
+
 </body>
 </html>
