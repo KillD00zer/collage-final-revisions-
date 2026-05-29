@@ -73,9 +73,10 @@
       padding: 8px 0;
     }
 
-    /* Custom Scrollbar for Drawer */
+    /* Custom Scrollbar for Drawer & Main Area */
     ::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
     ::-webkit-scrollbar-track {
       background: rgba(2, 6, 23, 0.3);
@@ -98,6 +99,14 @@
       border-color: #ff1493;
       box-shadow: 0 0 15px rgba(255, 20, 147, 0.4);
     }
+
+    /* Glow buttons active state */
+    .active-tab {
+      background: rgba(255, 20, 147, 0.2) !important;
+      border-color: #ff1493 !important;
+      box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+      color: #ffffff !important;
+    }
   </style>
 </head>
 <body class="text-white min-h-screen flex flex-col justify-between overflow-x-hidden relative p-4 md:p-6">
@@ -107,7 +116,7 @@
   <div class="absolute bottom-10 right-10 w-[450px] h-[450px] rounded-full bg-gradient-to-r from-blue-600 to-indigo-900 opacity-[0.15] filter blur-[120px] pointer-events-none animate-drift-blue z-0"></div>
 
   <!-- Header Section -->
-  <header class="w-full max-w-5xl mx-auto flex justify-between items-center z-10 mb-6">
+  <header class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center z-10 gap-4 mb-6">
     <div class="flex items-center space-x-3">
       <div class="relative flex items-center justify-center">
         <span class="absolute w-8 h-8 rounded-full bg-pink-500/30 pulse-glow"></span>
@@ -121,17 +130,30 @@
       </div>
     </div>
 
-    <!-- Quick glossary trigger -->
-    <button onclick="toggleGlossary(true)" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 transition-all duration-300 shadow-md flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.516a10.022 10.022 0 01-2.315 2.108m-.943-4.46a9.166 9.166 0 01-1.39-1.683M17 20h5m-2-3v3m-2-3H9.048a10.022 10.022 0 01-2.315-2.108m0 0a8.717 8.717 0 01-3.21-3.1m3.21 3.1A8.717 8.717 0 0010 9.516M11.5 5.5l.5-.5m-.5.5l-.5-.5m.5.5V9" />
-      </svg>
-      Bilingual Glossary
-    </button>
+    <!-- Mode Swapping & Glossary Navigation -->
+    <div class="flex items-center gap-2">
+      <!-- Mode Swapper -->
+      <div class="bg-slate-950/60 p-1.5 rounded-full border border-pink-500/20 flex gap-1">
+        <button id="btn-mode-flashcards" onclick="switchMode('flashcards')" class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 active-tab">
+          Study Cards
+        </button>
+        <button id="btn-mode-roadmap" onclick="switchMode('roadmap')" class="px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-slate-400 hover:text-white transition-all duration-300">
+          Logical Roadmap
+        </button>
+      </div>
+
+      <!-- Quick glossary trigger -->
+      <button onclick="toggleGlossary(true)" class="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border border-pink-500/30 hover:border-pink-500 hover:bg-pink-500/10 transition-all duration-300 shadow-md flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.516a10.022 10.022 0 01-2.315 2.108m-.943-4.46a9.166 9.166 0 01-1.39-1.683M17 20h5m-2-3v3m-2-3H9.048a10.022 10.022 0 01-2.315-2.108m0 0a8.717 8.717 0 01-3.21-3.1m3.21 3.1A8.717 8.717 0 0010 9.516M11.5 5.5l.5-.5m-.5.5l-.5-.5m.5.5V9" />
+        </svg>
+        Glossary
+      </button>
+    </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center z-10 relative mb-6">
+  <!-- Section 1: Study Cards View -->
+  <main id="flashcards-section" class="w-full max-w-5xl mx-auto flex-1 flex flex-col justify-center items-center z-10 relative mb-6">
     
     <!-- Outer deck layout with arrows on the sides -->
     <div class="w-full flex items-center justify-between gap-2 md:gap-6 relative">
@@ -188,8 +210,314 @@
 
   </main>
 
+  <!-- Section 2: Interactive Logical Roadmap Dashboard (NEW Master Cheat Sheet) -->
+  <main id="roadmap-section" class="hidden w-full max-w-5xl mx-auto flex-1 flex flex-col z-10 relative mb-6 fade-transition opacity-0 transform translate-y-4">
+    
+    <!-- Dashboard Intro Summary -->
+    <div class="w-full glass-card rounded-2xl p-6 mb-6 relative overflow-hidden">
+      <span class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-60"></span>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="space-y-1">
+          <span class="text-[10px] font-bold tracking-wider uppercase text-pink-400">Exam Cheat Sheet Dashboard</span>
+          <h2 class="text-xl md:text-2xl font-bold text-white">الخريطة الذهنية الشاملة لربط المنهج</h2>
+          <p class="text-xs text-slate-400">الدليل الموحد لربط الفراغات، والحلول، والاستقلال الخطي، والقيم الذاتية، وهندسة المصفوفات بالمنطق الجبري الشامل.</p>
+        </div>
+        <div class="px-4 py-2.5 bg-pink-500/10 rounded-xl border border-pink-500/30 text-xs text-pink-300 text-center font-semibold">
+          7 ركائز أساسية مترابطة خطياً!
+        </div>
+      </div>
+    </div>
+
+    <!-- Master Grid for the 7 Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+      
+      <!-- Pillar 1 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">01 &bull; RANK-NULLITY LOGIC</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الأبعاد والفراغات</span>
+          </div>
+          <h3 class="text-md font-bold text-white">العمود الفقري للمادة: منطق الأبعاد والفراغات</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            تنقسم أعمدة المصفوفة البالغ عددها ($n$) داخل صيغة الـ $REF$ أو الـ $RREF$ إلى نوعين لا ثالث لهما:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-white">• أعمدة تحتوي على عناصر ارتكاز (Pivot Columns):</strong> تمثل المتغيرات الأساسية ($Basic\ Variables$). وعددها يساوي رتبة المصفوفة ($Rank(A)$) وبُعد فضاء الصفوف ($dim(Row\ Space)$) وفضاء الأعمدة ($dim(Column\ Space)$).
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-white">• أعمدة خالية من الارتكاز (Non-Pivot Columns):</strong> تمثل المتغيرات الحرة ($Free\ Variables$). وعددها يساوي بُعد الفضاء الصفري للمصفوفة ($dim(Null\ Space)$).
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$\\text{Rank}(A) + \\text{Nullity}(A) = n$</p>
+          <button onclick="toggleAccordion('acc-1')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-1" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-1" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>المنطق الجبري:</strong> عند اختزال مصفوفة إلى صيغة الـ $REF$، كل عمود إما أن يمتلك $Pivot$ (وبالتالي يمثل بُعدًا مستقلاً في فضاء الصورة) أو لا يمتلك (فيمثل درجة حرية تتجه بالكامل إلى الصفر لتشكل فضاء النواة $Null\ Space$). مجموع الاثنين يحفظ البعد الكلي للنطاق وهو $n$ أعمدة.
+        </div>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">02 &bull; SOLVING LOGIC (Ax = B)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الأنظمة الخطية</span>
+          </div>
+          <h3 class="text-md font-bold text-white">منطق الحكم على حلول الأنظمة الخطية</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            عند حساب المصفوفة الممتدة $C = [A|B]$ واختزالها إلى $REF$، انظر دائماً إلى السطر الأخير للحكم على طبيعة الحلول:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-rose-400">• مستحيل الحل (No Solution):</strong> تظهر إذا وجد صف أصفار يقابله رقم غير صفري بالطرف الأيمن: $\\left[ \\begin{array}{ccc|c} 0 & 0 & 0 & c \\end{array} \\right]$ حيث $c \\neq 0$.
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-emerald-400">• حل وحيد (Unique Solution):</strong> يحدث إذا لم يظهر الصف التناقضي وكانت الرتبة تساوي عدد المتغيرات تماماً ($Rank = n$).
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-yellow-400">• حلول لا نهائية (Infinite Solutions):</strong> تحدث إذا كانت الرتبة أقل من عدد المتغيرات ($Rank < n$).
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold">Consistent if no $[0\\ 0\\ 0\\ |\\ c]$</p>
+          <button onclick="toggleAccordion('acc-2')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-2" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-2" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>المنطق الهندسي والجبري:</strong> 
+          تصفير الطرف الأيسر بالكامل مع وجود قيمة باليمين يعني أننا ندعي جبرياً أن $0 = c$ وهو مستحيل. بينما في حالة الحلول اللانهائية، فإن ظهور صف صفري كامل $[0\\ 0\\ 0\\ |\\ 0]$ يشير لوجود متغير حر واحد على الأقل ($Free\\ Variable$)، والذي نفترض له قيمة مجهولة مثل $t \\in \\mathbb{R}$ لإنتاج عدد لا نهائي من المتجهات المحققة للنظام.
+        </div>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">03 &bull; LINEAR INDEPENDENCE</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">الاستقلال الخطي</span>
+          </div>
+          <h3 class="text-md font-bold text-white">منطق الاستقلال والاعتماد الخطي للمتجهات</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            عند وضع مجموعة متجهات عددها ($n$) كأعمدة داخل مصفوفة $A$:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-emerald-400">• مستقلة خطياً (Linearly Independent):</strong> هندسياً لا يمكن إنتاج أحدها من دمج المتجهات الأخرى. وجبرياً يعني:
+              $$Rank(A) = n \\quad \\& \\quad Null(A) = \\{\\underline{0}\\}$$
+              ولا توجد أي متغيرات حرة تماماً في صيغة الـ $RREF$ والمحدد للمصفوفة المربعة لا يساوي الصفر ($|A| \\neq 0$).
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-rose-400">• معتمدة خطياً (Linearly Dependent):</strong> يوجد على الأقل متجه واحد عبارة عن تجميعة أو مضاعف للآخرين. وجبرياً:
+              $$Rank(A) < n \\quad \\& \\quad |A| = 0$$
+              ويظهر صف صفري بالكامل على الأقل في الـ $REF$ مع وجود متغير حر واحد أو أكثر.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold font-mono">Independent $\\iff |A| \\neq 0$</p>
+          <button onclick="toggleAccordion('acc-3')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-3" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-3" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>المنطق الهندسي:</strong> 
+          إذا كانت المتجهات معتمدة خطياً، فهذا يعني أنها تقع في فضاء فرعي ذي أبعاد أقل من عددها (مثلاً 3 متجهات تقع جميعها في مستوٍ ثنائي الأبعاد $2D$). بالتالي، يمكن التعبير عن أحد المتجهات باستخدام البقية، وتفقد المصفوفة رتبتها الكاملة ليصبح محددها مساوياً للصفر.
+        </div>
+      </div>
+
+      <!-- Pillar 4 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between md:col-span-1">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">04 &bull; SQUARE MATRIX BRIDGE</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">جسر الترابط الكلي</span>
+          </div>
+          <h3 class="text-md font-bold text-white">جسر المصفوفة المربعة الكلي ($n \\times n$ Matrix Bridge)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            للمصفوفات المربعة، العلاقات التالية متكافئة بالكامل (إذا تحقق شرط واحد، تحققت بقية الشروط تلقائياً):
+          </p>
+          
+          <!-- Visual Glowing Flow of Equivalence -->
+          <div class="space-y-2.5 my-3 text-[11px]">
+            <div class="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
+              <strong class="text-emerald-400 block mb-1">✓ Invertible Matrix (عكوسة)</strong>
+              $$A^{-1}\\text{ exists} \\iff |A| \\neq 0 \\iff Rank(A) = n \\iff \\text{Unique Solution} \\iff \\lambda_i \\neq 0$$
+            </div>
+            <div class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30">
+              <strong class="text-rose-400 block mb-1">✗ Singular Matrix (منفردة)</strong>
+              $$\\text{No } A^{-1} \\iff |A| = 0 \\iff Rank(A) < n \\iff \\text{Infinite/No Solution} \\iff \\exists \\lambda_i = 0$$
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-[10px] text-slate-400">جميع الشروط السابقة متكافئة منطقياً وعكسياً.</p>
+          <button onclick="toggleAccordion('acc-4')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-4" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-4" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>أهمية الجسر بالامتحان:</strong> 
+          إذا ذكر السؤال أن المصفوفة تحتوي على قيمة ذاتية مساوية للصفر ($\\lambda = 0$)، فاستنتج فوراً أن محددها مساوٍ للصفر ($|A| = 0$)، وأنها غير قابلة للعكس ($Singular$)، وأن رتبتها أصغر من عدد أعمدتها ($Rank < n$)، وبالتالي فإن النظام المتجانس المقابل لها $Ax = 0$ يمتلك عدداً لا نهائياً من الحلول وليس الحل الصفري فقط.
+        </div>
+      </div>
+
+      <!-- Pillar 5 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">05 &bull; SPECTRUM PROPERTIES</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">محدد وأثر المصفوفة</span>
+          </div>
+          <h3 class="text-md font-bold text-white">العلاقات الذهبية بين المحدد والأثر والقيم الذاتية</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            تجمع القيم الذاتية خصائص مصفوفاتنا عبر علاقتين حسابيتين ممتازتين لتسريع عمليات الحل والتحقق في الامتحان:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-white">• محدد المصفوفة (Determinant):</strong> محدد أي مصفوفة مربعة يساوي دائماً حاصل ضرب جميع قيمها الذاتية:
+              $$|A| = \\lambda_1 \\times \\lambda_2 \\times \\dots \\times \\lambda_n$$
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-white">• أثر المصفوفة (Trace):</strong> الأثر (وهو مجموع عناصر القطر الرئيسي) يساوي دائماً مجموع القيم الذاتية:
+              $$Trace(A) = a_{11} + a_{22} + \\dots + a_{nn} = \\lambda_1 + \\lambda_2 + \\dots + \\lambda_n$$
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-pink-400">• قوى المصفوفة (Powers of A):</strong> إذا كانت المصفوفة $A$ تمتلك قيمة ذاتية تساوي $\\lambda$، فإن المصفوفة $A^m$ تمتلك نفس المتجهات الذاتية ولكن قيمتها الذاتية تصبح مباشرة $\\lambda^m$.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$\\prod \\lambda_i = |A| \\quad \\& \\quad \\sum \\lambda_i = Tr(A)$</p>
+          <button onclick="toggleAccordion('acc-5')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-5" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-5" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>مثال للتحقق السريع:</strong> 
+          إذا قمت بحساب القيم الذاتية لمصفوفة قطرها الرئيسي يحتوي على الأرقام $(6, 3)$، ووجدتها بالحل $(\\lambda_1=4, \\lambda_2=5)$، فستعرف فوراً أن حساباتك صحيحة مائة بالمائة لأن:
+          $$Tr(A) = 6 + 3 = 9 \\quad \\& \\quad \\lambda_1 + \\lambda_2 = 4 + 5 = 9$$
+        </div>
+      </div>
+
+      <!-- Pillar 6 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">06 &bull; DIAGONALIZATION LOGIC</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">القطرية والتفكيك</span>
+          </div>
+          <h3 class="text-md font-bold text-white">منطق قطرة المصفوفات (Diagonalization)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            تعتمد عملية تفكيك المصفوفة إلى مصفوفات قطرية $A = CDC^{-1}$ على الشروط التالية:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-white">• شرط القابلية للقطرة (Diagonalizable):</strong> تكون المصفوفة قابلة للقطرة فقط إذا استطعنا إيجاد عدد $n$ من المتجهات الذاتية المستقلة خطياً لتكوين المصفوفة $C$.
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-emerald-400">• القيم المختلفة (Distinct Eigenvalues):</strong> إذا كانت جميع القيم الذاتية الناتجة أرقاماً مختلفة تماماً، فالمصفوفة حتماً قابلة للقطرة.
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-yellow-400">• القيم المكررة (Repeated Eigenvalues):</strong> إذا وجد تكرار لإحدى القيم، فيجب التأكد من أن البُعد الهندسي (عدد المتجهات المستقلة الناتجة عنها) يساوي بُعدها الجبري (عدد مرات تكرارها). وبغير ذلك، تفشل القطرية.
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$A = C D C^{-1}$</p>
+          <button onclick="toggleAccordion('acc-6')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-6" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-6" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>المنطق الجبري:</strong> 
+          عملية القطرية تعني تغيير محاور الإحداثيات الأساسية للمشكلة إلى محاور تمثل المتجهات الذاتية للمصفوفة. في هذا الفضاء الفردي الجديد، يصبح التحويل مجرد تمدد مباشر على القطر الرئيسي للمصفوفة $D$. إذا عجزنا عن إيجاد متجهات مستقلة كافية، فلن نتمكن من تكوين المصفوفة العكسية $C^{-1}$، وبالتالي يستحيل إتمام عملية القطرية.
+        </div>
+      </div>
+
+      <!-- Pillar 7 -->
+      <div class="glass-card rounded-xl p-5 relative overflow-hidden flex flex-col justify-between">
+        <span class="absolute left-0 top-0 h-full w-[3px] bg-pink-500"></span>
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-bold text-pink-400 tracking-wider">07 &bull; SPECIAL MATRICES LOGIC</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900/60 border border-slate-800 text-slate-300">مصفوفات ذات شروط خاصة</span>
+          </div>
+          <h3 class="text-md font-bold text-white">منطق المصفوفات الخاصة المتقدمة</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            هناك فئات خاصة من المصفوفات ندرسها في فصول متقدمة، ولها خصائص طيفية محددة:
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-lg border border-slate-900 space-y-2 text-xs">
+            <p class="text-slate-300">
+              <strong class="text-emerald-400">• المصفوفة المعرفة موجباً (Positive Definite Matrix):</strong> تكون المصفوفة المتماثلة معرفة موجباً خطياً فقط إذا كانت جميع قيمها الذاتية الناتجة أرقاماً موجبة تماماً:
+              $$\\lambda_i > 0 \\quad \\forall i$$
+            </p>
+            <p class="text-slate-300">
+              <strong class="text-yellow-400">• المصفوفة ذات القوى المتطابقة (Idempotent Matrix):</strong> هي المصفوفة التي تحقق الشرط الرياضي:
+              $$A^2 = A$$
+              المنطق الخاص بقيمها الذاتية: القيم الذاتية لأي مصفوفة متطابقة القوى يجب أن تكون إما صفراً أو واحداً فقط ($\\lambda = 0 \\text{ or } 1$).
+            </p>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 flex justify-between items-center">
+          <p class="text-xs text-pink-300 font-semibold font-mono">$A^2 = A \\implies \\lambda \\in \\{0, 1\\}$</p>
+          <button onclick="toggleAccordion('acc-7')" class="text-xs text-pink-400 hover:text-white transition-colors flex items-center gap-1 font-bold">
+            <span>تفسير المنطق</span>
+            <svg id="arrow-acc-7" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+        </div>
+        <!-- Accordion Content -->
+        <div id="acc-7" class="hidden mt-3 p-3 rounded-lg bg-slate-950/80 border border-pink-500/10 text-xs text-slate-300 space-y-2">
+          <strong>برهان طيف المصفوفة المتطابقة القوى:</strong> 
+          نعلم أن العلاقة الأساسية هي $A\\underline{x} = \\lambda\\underline{x}$.
+          بضرب الطرفين بـ $A$:
+          $$A^2\\underline{x} = A(\\lambda\\underline{x}) = \\lambda(A\\underline{x}) = \\lambda^2\\underline{x}$$
+          وبما أن $A^2 = A$، فإن:
+          $$A\\underline{x} = \\lambda^2\\underline{x} \\implies \\lambda\\underline{x} = \\lambda^2\\underline{x}$$
+          وبما أن المتجه $\\underline{x} \\neq \\underline{0}$، نستنتج جبرياً أن:
+          $$\\lambda^2 = \\lambda \\implies \\lambda(\\lambda - 1) = 0 \\implies \\lambda = 0 \\text{ or } \\lambda = 1$$
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Conclusion summary mapping footer -->
+    <div class="w-full glass-card rounded-2xl p-6 mt-6 relative overflow-hidden bg-pink-950/10 border border-pink-500/20">
+      <h3 class="text-sm font-bold text-white mb-2">الخلاصة الكلية لترابط المنهج:</h3>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        البداية من الـ <span class="text-pink-400 font-semibold">Pivot</span> في الـ <span class="text-pink-400 font-semibold">REF</span> تحدد الـ <span class="text-pink-400 font-semibold">Rank</span>، والـ <span class="text-pink-400 font-semibold">Rank</span> يحدد نوع الحل والاستقلال، والاستقلال يوصلك للمحددات والمعكوس، والمحددات هي مفتاح حل المعادلات المميزة للـ <span class="text-pink-400 font-semibold">Eigenvalues</span>، والـ <span class="text-pink-400 font-semibold">Eigenvalues</span> هي أساس الـ <span class="text-pink-400 font-semibold">Diagonalization</span> والخصائص المتقدمة للمصفوفات الخاصة. 
+      </p>
+    </div>
+
+  </main>
+
   <!-- Bottom Navigation Buttons (Responsive Mobile & Tablet friendly) -->
-  <footer class="w-full max-w-md mx-auto z-10 flex flex-col items-center gap-3 mb-4">
+  <footer id="flashcards-footer" class="w-full max-w-md mx-auto z-10 flex flex-col items-center gap-3 mb-4">
     <div class="flex justify-between items-center w-full gap-2 px-4 md:px-0">
       <button onclick="goToFirstCard()" class="flex-1 px-3 py-2 text-[10px] md:text-xs font-semibold uppercase tracking-wider rounded-lg border border-pink-500/20 hover:border-pink-500/60 hover:bg-pink-500/5 text-slate-400 hover:text-white transition-all duration-300 shadow-sm">
         First
@@ -721,7 +1049,7 @@
             </div>
             <div class="bg-slate-900/40 p-3 rounded-lg text-xs space-y-1">
               <strong class="text-pink-400 block">حساب قوى المصفوفة بسهولة:</strong>
-              <p>بدلاً من ضرب المصفوفة $A$ في نفسها عدة مرات (Several times)، نستخدم القانون:</p>
+              <p>بدلاً من ضرب المصفوفة $A$ في نفسها عدة مرات، نستخدم القانون:</p>
               <p class="text-center font-bold text-white">$A^k = C D^k C^{-1} \\quad$ حيث $\\quad D^k = \\begin{pmatrix} \\lambda_1^k & 0 \\\\ 0 & \\lambda_2^k \\end{pmatrix}$</p>
             </div>
           </div>
@@ -897,7 +1225,7 @@
             <div class="bg-pink-950/15 border-2 border-pink-500/30 p-4 rounded-xl text-center text-xs md:text-sm">
               <strong class="text-white block mb-1">Co-Instructor's Final Words</strong>
               <p class="text-pink-300 font-bold leading-relaxed">
-                "شغفك بالتعلم هو سلاحك الأقوى! الخطوات المنهجية وحل التدريبات بيدك هي مفتاح التفوق في هذا المقرر. بالتوفيق يا أبطال البيانات والذكاء الاصطناعي!"
+                "شغفك بالتعلم هو سلاحك الأقوى! الخطوات المنهجية وحل التدريبات بيدك هي مفتاح التفوق في هذا مقرر. بالتوفيق يا أبطال البيانات والذكاء الاصطناعي!"
               </p>
             </div>
           </div>
@@ -940,9 +1268,14 @@
       // Keyboard interaction listener
       document.addEventListener('keydown', function(event) {
         if (event.key === "ArrowLeft") {
-          prevCard();
+          // Check if we are currently in flashcard mode
+          if (!document.getElementById('flashcards-section').classList.contains('hidden')) {
+            prevCard();
+          }
         } else if (event.key === "ArrowRight") {
-          nextCard();
+          if (!document.getElementById('flashcards-section').classList.contains('hidden')) {
+            nextCard();
+          }
         }
       });
 
@@ -969,6 +1302,82 @@
         }
       }
     };
+
+    // Swapping between flashcards mode & Logical roadmap dashboard
+    function switchMode(mode) {
+      const btnCards = document.getElementById('btn-mode-flashcards');
+      const btnRoadmap = document.getElementById('btn-mode-roadmap');
+      const secCards = document.getElementById('flashcards-section');
+      const secRoadmap = document.getElementById('roadmap-section');
+      const footerCards = document.getElementById('flashcards-footer');
+
+      if (mode === 'flashcards') {
+        btnCards.classList.add('active-tab');
+        btnCards.classList.remove('text-slate-400');
+        btnRoadmap.classList.remove('active-tab');
+        btnRoadmap.classList.add('text-slate-400');
+
+        secRoadmap.classList.add('opacity-0', 'translate-y-4');
+        setTimeout(() => {
+          secRoadmap.classList.add('hidden');
+          secCards.classList.remove('hidden');
+          footerCards.classList.remove('hidden');
+          setTimeout(() => {
+            secCards.classList.remove('opacity-0', 'translate-y-4');
+          }, 50);
+        }, 250);
+
+      } else {
+        btnRoadmap.classList.add('active-tab');
+        btnRoadmap.classList.remove('text-slate-400');
+        btnCards.classList.remove('active-tab');
+        btnCards.classList.add('text-slate-400');
+
+        secCards.classList.add('opacity-0');
+        setTimeout(() => {
+          secCards.classList.add('hidden');
+          footerCards.classList.add('hidden');
+          secRoadmap.classList.remove('hidden');
+          
+          // Trigger KaTeX rendering on the roadmap layout elements
+          renderMathInElement(secRoadmap, {
+            delimiters: [
+              {left: "$$", right: "$$", display: true},
+              {left: "$", right: "$", display: false}
+            ],
+            throwOnError: false
+          });
+
+          setTimeout(() => {
+            secRoadmap.classList.remove('opacity-0', 'translate-y-4');
+          }, 50);
+        }, 250);
+      }
+    }
+
+    // Toggle interactive Accordions in Logical Roadmap
+    function toggleAccordion(accId) {
+      const acc = document.getElementById(accId);
+      const arrow = document.getElementById('arrow-' + accId);
+      
+      if (acc.classList.contains('hidden')) {
+        acc.classList.remove('hidden');
+        acc.classList.add('block');
+        arrow.classList.add('rotate-180');
+        // Render math inside newly opened block to make sure it typesets cleanly
+        renderMathInElement(acc, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+          ],
+          throwOnError: false
+        });
+      } else {
+        acc.classList.add('hidden');
+        acc.classList.remove('block');
+        arrow.classList.remove('rotate-180');
+      }
+    }
 
     // Render current active card
     function renderActiveCard() {
@@ -1043,6 +1452,7 @@
       goToCard(0);
     }
 
+    // Dynamic length solver
     function goToLastCard() {
       goToCard(cardsData.length - 1);
     }
